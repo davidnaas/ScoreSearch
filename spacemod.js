@@ -389,8 +389,8 @@
 	};
 
 	var initFrameCSS = function () {
-		var frameStyle = ".space-frame {display: none;position: fixed;width: 100vw;height: 100vh;} ";
-		var innerFrameStyle = ".space-frame .space-inner-frame {position: absolute;transform-style: preserve-3d;top: 50%;left: 50%;-webkit-transform: translate(-50%, -50%);-moz-transform: translate(-50%, -50%);-ms-transform: translate(-50%, -50%);-o-transform: translate(-50%, -50%);transform: translate(-50%, -50%);}"
+		var frameStyle = ".space-frame {display: none;position: fixed;width: 100vw;height: 90vh; z-index:999;} ";
+		var innerFrameStyle = ".space-frame .space-inner-frame {position: absolute;transform-style: preserve-3d;top: 50%;left: 50%;-webkit-transform: translate(-50%, -50%);-moz-transform: translate(-50%, -50%);-ms-transform: translate(-50%, -50%);-o-transform: translate(-50%, -50%);transform: translate(-50%, -50%); z-index:999;}"
 
 		var style = document.createElement('style');
 		style.type = 'text/css';
