@@ -5,6 +5,7 @@ A concept design for browsing scores on musescore.org
 Clone the repository
 
 >  $ npm install express
+
 >  $ node server
   
 Open localhost:4000 in browser
