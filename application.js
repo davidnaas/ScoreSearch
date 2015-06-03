@@ -9,6 +9,9 @@ $(document).ready(function() {
 	$('#searchform').submit(function (evt) {
 		evt.preventDefault();
 
+		if(this[0].value === '')
+			return
+
 		searchCriteria = evt.currentTarget.children[0].value;
 
 		$('#searchform').fadeOut('slow', function() {
@@ -16,36 +19,35 @@ $(document).ready(function() {
 		});
 
 		url = createSearchURL(searchCriteria, currentPage);
-		currentPage++;
-
 
 		$('.spacediv').append(
 			"<div class=\"space-frame\" data-enter=\"\" data-exit=\"\" data-duration=\"0.1\"><section class=\"space-inner-frame\"><p class=\"searchHeader\">"+ searchCriteria +"</p></section></div>"
 		);
 
 		getScores(url);
-		$('body').prepend('<i class="fa fa-2x fa-search"></i>');
+		$('body').prepend('<i class="fa fa-2x fa-search cornerSearch"></i>');
 
 
 	});
 
 	$('*').on('click', 'i.fa', function(event) {
-		console.log(event.currentTarget.className);
+
 		var classname = event.currentTarget.className;
+
 		if ( classname === 'fa fa-star-o'){
 			$(event.currentTarget).removeClass('fa-star-o')
 			$(event.currentTarget).addClass('fa-star');
-		}else if(classname === 'fa fa-2x fa-search'){
+		}else if(classname === 'fa fa-2x fa-search cornerSearch'){
 			$('.space-frame').remove();
 			$('body').css('height', '100vh');
-			$('.fa-search').animate({
+			$('.cornerSearch').animate({
 					opacity: 0,
 				}, 2000, function() {
 					// Animation complete.
 			});
 			$('#searchform').fadeIn('slow', function() {
 			});
-		}else if(classname === 'fa fa-2x fa-plus'){
+		}else if(classname === 'fa fa-4x fa-plus'){
 			$('.plusFrame').fadeOut('slow', function() {
 				this.remove();
 				loadNextPage();
@@ -63,7 +65,7 @@ $(document).ready(function() {
 		pdfURL = baseURL + 'score.pdf'
 
 		$('.spacediv').append(
-					"<div class=\"space-frame\" data-enter=\"fadeIn slideInBottom\" data-exit=\"fadeOut zoomOut\" data-duration=\"2\"><section class=\"space-inner-frame\"><img src=\""+imageURL+"\"><a href=\""+pdfURL+"\"><i class=\"fa fa-file-pdf-o\"></i></a><i class=\"fa fa-star-o\"></i><audio class=\"audioplayer\" src=\""+audioURL+"\" preload=\"auto\" autoplay loop></audio></section></div>"
+					"<div class=\"space-frame\" data-enter=\"fadeIn slideInBottom\" data-exit=\"fadeOut zoomOut\" data-duration=\"2\"><section class=\"space-inner-frame\"><img src=\""+imageURL+"\" class=\"scoreImg\"><a href=\""+pdfURL+"\"><i class=\"fa fa-file-pdf-o\"></i></a><i class=\"fa fa-star-o\"></i><audio class=\"audioplayer\" src=\""+audioURL+"\" preload=\"auto\" autoplay loop></audio></section></div>"
 		);
 
 	}
@@ -71,14 +73,15 @@ $(document).ready(function() {
 	function appendPlusFrame() {
 		//TODO Add option to load next page
 		$('.spacediv').append(
-				"<div class=\"space-frame plusFrame\" data-enter=\"fadeIn slideInBottom\" data-exit=\"fadeOut zoomOut\" data-duration=\"2\"><section class=\"space-inner-frame\"><i class=\"fa fa-2x fa-plus\"></i></section></div>"
+				"<div class=\"space-frame plusFrame\" data-enter=\"fadeIn slideInBottom\" data-exit=\"fadeOut zoomOut\" data-duration=\"2\"><section class=\"space-inner-frame\"><i class=\"fa fa-4x fa-plus\"></i></section></div>"
 		);
 	}
 
 	function loadNextPage () {
-		getScores(createSearchURL(searchCriteria, currentPage));
-		SpaceController().init();
 		currentPage++;
+		getScores(createSearchURL(searchCriteria, currentPage));
+		//reInit space.js to use the newly added frames
+		init();
 	}
 
 	function createSearchURL (search, page) {
@@ -87,6 +90,8 @@ $(document).ready(function() {
 
 	function getScores (getURL) {
 		$.get(getURL, function(data) {
+
+			console.log(data);
 
 			for(var i = 0; i < data.length; i++){
 				score = data[i];

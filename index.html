@@ -1,15 +1,23 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Browse Your Favorite Scores</title>
+		<title>MuseScore Search</title>
 		<script src="bower_components/jquery/dist/jquery.min.js"></script>
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+		<link href='http://fonts.googleapis.com/css?family=Raleway:100,700' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" type="text/css" href="application.css">
 	</head>
 	<body>
+		<div class="logodiv">
+			<img src="resources/logo.png"> <h1> | Search</h1>
+		</div>
 		<form id='searchform'>
 			<input class="searchField"  type="text" name="searchfield" placeholder="Mozart" value="">
-			<input class="searchButton" type="submit" value="Search">		
+			<!--<input class="searchButton" type="submit" value="Search">-->
+
+			<button type="submit" class="searchButton">
+				<i class="fa fa-search visibleSearch"></i>
+			</button>		
 		</form>
 
 		<div class="spacediv">
