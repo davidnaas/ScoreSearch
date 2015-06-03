@@ -86,64 +86,114 @@ $(document).ready(function() {
 	}
 
 	function createSearchURL (search, page) {
-		return 'http://api.musescore.com/services/rest/score.json&oauth_consumer_key='+ KEY + '&oauth_consumer_secret='+ SECRET + '&text=' + search + '&page=' + page;
-	}
-
-	function loadSapceJS () {
-		$.getScript("spacemod.js", function(){
-
-		});
+		return 'http://api.musescore.com/services/rest/score.jsonp&oauth_consumer_key='+ KEY + '&oauth_consumer_secret='+ SECRET + '&text=' + search + '&page=' + page;
 	}
 
 	function getScores (getURL) {
-		$.get(getURL, function(data) {
 
+		$.ajax({
+			url: getURL,
+			type: 'GET',
+			crossDomain: true,
+			dataType: 'jsonp',
+			success: function (data) {
+				console.log('success');
+				if(data != null){
+					for(var i = 0; i < data.length; i++){
+						score = data[i];
+						appendSpaceFrame(score.id, score.secret);
+					}
 
-			if(data != null){
-				for(var i = 0; i < data.length; i++){
-					score = data[i];
-					appendSpaceFrame(score.id, score.secret);
+					appendPlusFrame();
+
+					var spaceframes = $('.space-frame')
+
+					//set start volume to zero
+					for(i = 1; i < spaceframes.length -1; i++ ){
+						audio = $(spaceframes[i]).find(".audioplayer");
+						audio[0].volume = 0;
+					}
+				}else{
+					$('.searchHeader').text('No scores were found');
 				}
 
-				appendPlusFrame();
-
-				var spaceframes = $('.space-frame')
-
-				//set start volume to zero
-				for(i = 1; i < spaceframes.length -1; i++ ){
-					audio = $(spaceframes[i]).find(".audioplayer");
-					audio[0].volume = 0;
+				//Only load first time
+				if($('script').length < 3){
+					$.getScript("spacemod.js", function(){});
 				}
-			}else{
-				$('.searchHeader').text('No scores were found');
+
+				$('img').animate({
+						opacity: 1,
+					}, 2000, function() {
+						// Animation complete.
+				});
+
+				$('i').animate({
+						opacity: 1,
+					}, 1000, function() {
+						// Animation complete.
+				});
+
+				$('p').animate({
+						opacity: 1,
+					}, 1000, function() {
+						// Animation complete.
+				});
+			},
+			error: function  (error) {
+				console.log(error);
 			}
+		});
 
-			//Only load first time
-			if($('script').length < 3){
-				loadSapceJS();
-			}
+	}
 
-			$('img').animate({
-					opacity: 1,
-				}, 2000, function() {
-					// Animation complete.
-			});
+	// 	$.get(getURL, function(data) {
 
-			$('i').animate({
-					opacity: 1,
-				}, 1000, function() {
-					// Animation complete.
-			});
+	// 		if(data != null){
+	// 			for(var i = 0; i < data.length; i++){
+	// 				score = data[i];
+	// 				appendSpaceFrame(score.id, score.secret);
+	// 			}
 
-			$('p').animate({
-					opacity: 1,
-				}, 1000, function() {
-					// Animation complete.
-			});
+	// 			appendPlusFrame();
+
+	// 			var spaceframes = $('.space-frame')
+
+	// 			//set start volume to zero
+	// 			for(i = 1; i < spaceframes.length -1; i++ ){
+	// 				audio = $(spaceframes[i]).find(".audioplayer");
+	// 				audio[0].volume = 0;
+	// 			}
+	// 		}else{
+	// 			$('.searchHeader').text('No scores were found');
+	// 		}
+
+	// 		//Only load first time
+	// 		if($('script').length < 3){
+	// 			loadSapceJS();
+	// 		}
+
+	// 		$('img').animate({
+	// 				opacity: 1,
+	// 			}, 2000, function() {
+	// 				// Animation complete.
+	// 		});
+
+	// 		$('i').animate({
+	// 				opacity: 1,
+	// 			}, 1000, function() {
+	// 				// Animation complete.
+	// 		});
+
+	// 		$('p').animate({
+	// 				opacity: 1,
+	// 			}, 1000, function() {
+	// 				// Animation complete.
+	// 		});
 
 			
-		});
-	}
+	// 	});
+	// }
 
 });
 
