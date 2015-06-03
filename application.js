@@ -21,7 +21,7 @@ $(document).ready(function() {
 		url = createSearchURL(searchCriteria, currentPage);
 
 		$('.spacediv').append(
-			"<div class=\"space-frame criteriaFrame\" data-enter=\"\" data-exit=\"\" data-duration=\"0.1\"><section class=\"space-inner-frame\"><p class=\"searchHeader\">"+ searchCriteria +"</p></section></div>"
+			"<div class=\"space-frame criteriaFrame\" data-enter=\"\" data-exit=\"\" data-duration=\"0.1\"><section class=\"space-inner-frame\"><p class=\"searchHeader\">"+ searchCriteria +"</p><i class=\"fa fa-2x fa-chevron-down\"></i></section></div>"
 		);
 
 		getScores(url);
