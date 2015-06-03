@@ -5,7 +5,7 @@ var currentPage = 0;
 var searchCriteria;
 
 $(document).ready(function() {
-	
+
 	$('#searchform').submit(function (evt) {
 		evt.preventDefault();
 
@@ -21,7 +21,7 @@ $(document).ready(function() {
 		url = createSearchURL(searchCriteria, currentPage);
 
 		$('.spacediv').append(
-			"<div class=\"space-frame\" data-enter=\"\" data-exit=\"\" data-duration=\"0.1\"><section class=\"space-inner-frame\"><p class=\"searchHeader\">"+ searchCriteria +"</p></section></div>"
+			"<div class=\"space-frame criteriaFrame\" data-enter=\"\" data-exit=\"\" data-duration=\"0.1\"><section class=\"space-inner-frame\"><p class=\"searchHeader\">"+ searchCriteria +"</p></section></div>"
 		);
 
 		getScores(url);
@@ -63,9 +63,10 @@ $(document).ready(function() {
 		audioURL = baseURL + 'score.mp3';
 		imageURL = baseURL + 'score_0.png';
 		pdfURL = baseURL + 'score.pdf'
+		mp3URL = baseURL + 'score.mp3'
 
 		$('.spacediv').append(
-					"<div class=\"space-frame\" data-enter=\"fadeIn slideInBottom\" data-exit=\"fadeOut zoomOut\" data-duration=\"2\"><section class=\"space-inner-frame\"><img src=\""+imageURL+"\" class=\"scoreImg\"><a href=\""+pdfURL+"\"><i class=\"fa fa-file-pdf-o\"></i></a><i class=\"fa fa-star-o\"></i><audio class=\"audioplayer\" src=\""+audioURL+"\" preload=\"auto\" autoplay loop></audio></section></div>"
+					"<div class=\"space-frame\" data-enter=\"fadeIn slideInBottom\" data-exit=\"fadeOut zoomOut\" data-duration=\"2\"><section class=\"space-inner-frame\"><img src=\""+imageURL+"\" class=\"scoreImg\"><a href=\""+pdfURL+"\"><i class=\"fa fa-file-pdf-o\"></i></a><i class=\"fa fa-star-o\"></i><a href=\""+mp3URL+"\"><i class=\"fa fa-music\"></i></a><audio class=\"audioplayer\" src=\""+audioURL+"\" preload=\"auto\" autoplay loop></audio></section></div>"
 		);
 
 	}
@@ -88,23 +89,38 @@ $(document).ready(function() {
 		return 'http://api.musescore.com/services/rest/score.json&oauth_consumer_key='+ KEY + '&oauth_consumer_secret='+ SECRET + '&text=' + search + '&page=' + page;
 	}
 
+	function loadSapceJS () {
+		$.getScript("spacemod.js", function(){
+
+		});
+	}
+
 	function getScores (getURL) {
 		$.get(getURL, function(data) {
 
-			console.log(data);
 
-			for(var i = 0; i < data.length; i++){
-				score = data[i];
-				appendSpaceFrame(score.id, score.secret);
+			if(data != null){
+				for(var i = 0; i < data.length; i++){
+					score = data[i];
+					appendSpaceFrame(score.id, score.secret);
+				}
+
+				appendPlusFrame();
+
+				var spaceframes = $('.space-frame')
+
+				//set start volume to zero
+				for(i = 1; i < spaceframes.length -1; i++ ){
+					audio = $(spaceframes[i]).find(".audioplayer");
+					audio[0].volume = 0;
+				}
+			}else{
+				$('.searchHeader').text('No scores were found');
 			}
-
-			appendPlusFrame();
 
 			//Only load first time
 			if($('script').length < 3){
-				$.getScript("spacemod.js", function(){
-
-				});
+				loadSapceJS();
 			}
 
 			$('img').animate({
@@ -115,23 +131,17 @@ $(document).ready(function() {
 
 			$('i').animate({
 					opacity: 1,
-				}, 2000, function() {
+				}, 1000, function() {
 					// Animation complete.
 			});
 
 			$('p').animate({
 					opacity: 1,
-				}, 2000, function() {
+				}, 1000, function() {
 					// Animation complete.
 			});
 
-			//set start volume to zero
-			var spaceframes = $('.space-frame')
-
-			for(i = 1; i < spaceframes.length -1; i++ ){
-				audio = $(spaceframes[i]).find(".audioplayer");
-				audio[0].volume = 0;
-			}
+			
 		});
 	}
 

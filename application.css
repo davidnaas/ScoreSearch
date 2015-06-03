@@ -1,1 +1,113 @@
-form{position:absolute;-webkit-transform-style:preserve-3d;transform-style:preserve-3d;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}p{font-size:2.5em;opacity:0;font-family:'Raleway';font-weight:700}.scoreImg{max-height:1000px;max-width:500px;*zoom:1;float:left;clear:none;text-align:inherit;width:74.25%;margin-left:0%;margin-right:3%;}.scoreImg:before,.scoreImg:after{content:'';display:table}.scoreImg:after{clear:both}.scoreImg:last-child{margin-right:0%}.space-frame i{opacity:0;padding:10px;display:block;position:relative;z-index:-1 !important}.space-frame .fa-file-pdf-o{margin-top:50px}input{font-family:'Raleway',sans-serif;font-size:2em}.searchButton{border-radius:40px;padding:12px 20px;border:solid 3px #aaa;background-color:#fff}.searchButton:hover{cursor:pointer}.searchField{border-radius:40px;padding:15px 20px;border:solid 3px #aaa;outline:none}.cornerSearch{opacity:0;position:fixed;top:20px;right:50px;color:#555;z-index:9999 !important}.visibleSearch{opacity:1;position:relative;font-size:3em;padding:6px 20px;color:#555}.logodiv{position:fixed;top:20px;left:20px;width:500px;}.logodiv img{opacity:1;height:30px;padding-right:10px}.logodiv h1{display:inline;font-size:3.1em;font-family:'Raleway',sans-serif;font-weight:100}.fa{cursor:pointer !important}img{opacity:0}a{color:#000}a:visited{color:#000}.spacediv{width:100vh;height:90vh}
+form {
+  position: absolute;
+  transform-style: preserve-3d;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+p {
+  font-size: 2.5em;
+  opacity: 0;
+  font-family: 'Raleway';
+  font-weight: 700;
+}
+.scoreImg {
+  max-height: 1000px;
+  max-width: 700px;
+  *zoom: 1;
+  float: left;
+  clear: none;
+  text-align: inherit;
+  width: 74.25%;
+  margin-left: 0%;
+  margin-right: 3%;
+}
+.scoreImg:before,
+.scoreImg:after {
+  content: '';
+  display: table;
+}
+.scoreImg:after {
+  clear: both;
+}
+.scoreImg:last-child {
+  margin-right: 0%;
+}
+.space-frame i {
+  opacity: 0;
+  padding: 10px;
+  display: block;
+  position: relative;
+  z-index: -1 !important;
+}
+.space-frame .fa-file-pdf-o {
+  margin-top: 50px;
+}
+input {
+  font-family: 'Raleway', sans-serif;
+  font-size: 2em;
+}
+.searchButton {
+  border-radius: 40px;
+  padding: 12px 20px;
+  border: solid 3px #aaa;
+  background-color: #fff;
+}
+.searchButton:hover {
+  cursor: pointer;
+}
+.searchField {
+  border-radius: 40px;
+  padding: 15px 20px;
+  border: solid 3px #aaa;
+  outline: none;
+}
+.cornerSearch {
+  opacity: 0;
+  position: fixed;
+  top: 20px;
+  right: 50px;
+  color: #555;
+  z-index: 9999 !important;
+}
+.visibleSearch {
+  opacity: 1;
+  position: relative;
+  font-size: 3em;
+  padding: 6px 20px;
+  color: #555;
+}
+.logodiv {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 500px;
+}
+.logodiv img {
+  opacity: 1;
+  height: 30px;
+  padding-right: 10px;
+}
+.logodiv h1 {
+  display: inline;
+  font-size: 3.1em;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 100;
+}
+.fa {
+  cursor: pointer !important;
+}
+img {
+  opacity: 0;
+}
+a {
+  color: #000;
+  text-decoration: none;
+}
+a:visited {
+  color: #000;
+}
+.spacediv {
+  width: 100vh;
+  height: 90vh;
+}
